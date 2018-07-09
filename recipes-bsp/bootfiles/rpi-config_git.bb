@@ -110,6 +110,9 @@ do_deploy() {
     if [ -n "${DISPLAY_ROTATE}" ]; then
         sed -i '/#display_rotate=/ c\display_rotate=${DISPLAY_ROTATE}' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
+    if [ -n "${LCD_ROTATE}" ]; then
+        echo "lcd_rotate=${LCD_ROTATE}" >>${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    fi
 
     # Video camera support
     if [ -n "${VIDEO_CAMERA}" ]; then
