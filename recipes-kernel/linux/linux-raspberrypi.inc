@@ -36,6 +36,7 @@ CMDLINE_append = " ${CMDLINE_DEBUG}"
 KERNEL_INITRAMFS ?= '${@oe.utils.conditional("INITRAMFS_IMAGE_BUNDLE", "1", "1", "", d)}'
 
 KERNEL_MODULE_AUTOLOAD += "${@bb.utils.contains("MACHINE_FEATURES", "pitft28r", "stmpe-ts", "", d)}"
+KERNEL_MODULE_AUTOLOAD += " hid-multitouch "
 
 # A LOADADDR is needed when building a uImage format kernel. This value is not
 # set by default in rpi-4.8.y and later branches so we need to provide it

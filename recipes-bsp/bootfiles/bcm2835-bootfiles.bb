@@ -3,7 +3,7 @@ LICENSE = "Proprietary"
 
 LIC_FILES_CHKSUM = "file://LICENCE.broadcom;md5=4a4d169737c0786fb9482bb6d30401d1"
 
-inherit deploy nopackages
+inherit deploy package
 
 include recipes-bsp/common/firmware.inc
 
@@ -16,6 +16,26 @@ COMPATIBLE_MACHINE = "^rpi$"
 S = "${RPIFW_S}/boot"
 
 PR = "r3"
+
+INSANE_SKIP_${PN} = "dev-elf ldflags"
+INSANE_SKIP_${PN}-dev = "dev-elf ldflags"
+
+do_install() {
+
+   install -d ${D}${includedir}/IL
+   install -d ${D}${libdir}/
+   install -m 0644 ${S}/../opt/vc/include/IL/*.h ${D}${includedir}/IL
+   install -m 0755 ${S}/../opt/vc/lib/*.so ${D}${libdir}/
+
+   # remove duplicated library with mesa
+
+   rm ${D}${libdir}/libWFC.so
+   rm ${D}${libdir}/libOpenVG.so
+   rm ${D}${libdir}/libGLESv1_CM.so
+   rm ${D}${libdir}/libEGL.so
+   rm ${D}${libdir}/libGLESv2.so
+}
+
 
 do_deploy() {
     install -d ${DEPLOYDIR}/${PN}
@@ -38,4 +58,7 @@ addtask deploy before do_build after do_install
 do_deploy[dirs] += "${DEPLOYDIR}/${PN}"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+FILES_${PN} += "${libdir}/*.so"
+FILES_SOLIBSDEV = ""
 
