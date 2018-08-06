@@ -9,7 +9,7 @@ include recipes-bsp/common/firmware.inc
 
 INHIBIT_DEFAULT_DEPS = "1"
 
-DEPENDS = "rpi-config"
+DEPENDS = "rpi-config libgcc"
 
 COMPATIBLE_MACHINE = "^rpi$"
 
