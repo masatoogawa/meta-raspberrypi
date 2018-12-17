@@ -7,4 +7,4 @@ EXTRA_OECONF_append_rpi  = " CFLAGS="$CFLAGS -I${STAGING_DIR_TARGET}/usr/include
 #examples only build with GL but not GLES, so disable it for RPI
 EXTRA_OECONF_append_rpi = " --disable-examples"
 
-DEPENDS += "bcm2835-bootfiles"
+DEPENDS += "bcm2835-bootfiles-vclibs"
